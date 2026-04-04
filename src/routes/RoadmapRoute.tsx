@@ -115,7 +115,10 @@ export function RoadmapRoute() {
           const isExpanded = expandedMilestones[milestone.id] ?? true
 
           return (
-            <Card key={milestone.id} className="space-y-3">
+              <Card
+                  key={milestone.id}
+                  className={`space-y-3 border-l-4  border-l-slate-500 bg-slate-900/20`}
+              >
               <button
                 type="button"
                 onClick={() => toggleMilestone(milestone.id)}
@@ -143,7 +146,15 @@ export function RoadmapRoute() {
                     className="space-y-2 overflow-hidden"
                   >
                     {milestoneTasks.map((task) => (
-                      <div key={task.id} className="rounded-xl border border-slate-800 bg-slate-900/70 p-3">
+                        <div
+                            key={task.id}
+                            className={`rounded-xl border border-slate-800 bg-slate-900/70 p-3 mb-5 border-l-4 ${ task.priority === 'high'
+                                    ? 'border-l-red-500'
+                                    : task.priority === 'medium'
+                                        ? 'border-l-yellow-500'
+                                        : 'border-l-green-500'
+                            }`}
+                        >
                         <div className="flex flex-wrap items-center gap-2">
                           <input
                             type="checkbox"
@@ -209,6 +220,7 @@ export function RoadmapRoute() {
                           {task.definitionOfDone}
                         </div>
                       </div>
+
                     ))}
 
                     <div className="flex flex-wrap items-center gap-2 rounded-xl border border-dashed border-slate-700 bg-slate-900/40 p-3">
