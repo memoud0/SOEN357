@@ -265,7 +265,7 @@ export function SessionRoute() {
                     </div>
                     <p className="mt-1 text-xs text-slate-400">{task.definitionOfDone}</p>
                     {candidateSwapTasks.length > 0 ? (
-                      <label className="mt-2 block text-xs text-slate-400">
+                      <label className="mt-2 block text-sm text-slate-400">
                         Swap this task
                         <select
                           onChange={(event) => {
@@ -294,7 +294,7 @@ export function SessionRoute() {
                 )
               })
             ) : (
-              <p className="rounded-xl border border-dashed border-slate-700 bg-slate-900/40 p-3 text-sm text-slate-400">
+              <p className="rounded-xl border border-dashed border-slate-700 bg-slate-900/40 p-3 text-lg text-slate-400">
                 No eligible tasks are available yet. Review dependencies on the roadmap.
               </p>
             )}
