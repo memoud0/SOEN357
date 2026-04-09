@@ -26,7 +26,7 @@ export function RoadmapRoute() {
   const { projectId = '' } = useParams()
   const { project, milestones, tasks } = useProjectData(projectId)
   const { updateTask, addTask, removeTask, recomputeMilestones } = useAppStore()
-
+  const priorityOrder:  Record<string, number> = { high: 0, medium: 1, low: 2 };
   const [expandedMilestones, setExpandedMilestones] = useState<Record<string, boolean>>({})
   const [draftTitles, setDraftTitles] = useState<Record<string, string>>({})
   const [newTaskByMilestone, setNewTaskByMilestone] = useState<Record<string, string>>({})
@@ -145,7 +145,7 @@ export function RoadmapRoute() {
                     exit={{ opacity: 0, height: 0 }}
                     className="space-y-2 overflow-hidden"
                   >
-                    {milestoneTasks.map((task) => (
+                    {milestoneTasks.sort((a, b) => priorityOrder[a.priority] - priorityOrder[b.priority]).map((task) => (
                         <div
                             key={task.id}
                             className={`rounded-xl border border-slate-800 bg-slate-900/70 p-3 mb-5 border-l-4 ${ task.priority === 'high'
