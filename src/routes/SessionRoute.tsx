@@ -265,7 +265,7 @@ export function SessionRoute() {
                     </div>
                     <p className="mt-1 text-xs text-slate-400">{task.definitionOfDone}</p>
                     {candidateSwapTasks.length > 0 ? (
-                      <label className="mt-2 block text-xs text-slate-400">
+                      <label className="mt-2 block text-sm text-slate-400">
                         Swap this task
                         <select
                           onChange={(event) => {
@@ -294,7 +294,7 @@ export function SessionRoute() {
                 )
               })
             ) : (
-              <p className="rounded-xl border border-dashed border-slate-700 bg-slate-900/40 p-3 text-sm text-slate-400">
+              <p className="rounded-xl border border-dashed border-slate-700 bg-slate-900/40 p-3 text-lg text-slate-400">
                 No eligible tasks are available yet. Review dependencies on the roadmap.
               </p>
             )}
@@ -312,6 +312,42 @@ export function SessionRoute() {
       ) : null}
 
       {phase === 'active' ? (
+          <div className="space-y-4">
+            <Card className="mx-auto flex flex-col items-center gap-3">
+              <div className="flex items-center justify-between">
+                <p className="text-sm text-slate-300">Focus timer</p>
+                <Timer size={16} className="text-amber-300" />
+              </div>
+              <p className="text-4xl font-bold tracking-tight text-amber-300">{formatTimer(remainingSeconds)}</p>
+              <div className="flex flex-wrap gap-2">
+                <button
+                    type="button"
+                    onClick={() => setRunning((current) => !current)}
+                    className="inline-flex items-center gap-1 rounded-lg border border-slate-700 px-3 py-2 text-sm text-slate-100 hover:bg-slate-800"
+                >
+                  {running ? <Pause size={14} /> : <Play size={14} />}
+                  {running ? 'Pause' : 'Resume'}
+                </button>
+                <button
+                    type="button"
+                    onClick={() => {
+                      setRunning(false)
+                      setRemainingSeconds(plannedMinutes * 60)
+                    }}
+                    className="inline-flex items-center gap-1 rounded-lg border border-slate-700 px-3 py-2 text-sm text-slate-100 hover:bg-slate-800"
+                >
+                  <RotateCcw size={14} />
+                  Reset
+                </button>
+              </div>
+              <p className="text-xs text-slate-400">
+                First action:{' '}
+                {session?.timeToFirstActionSeconds !== undefined &&
+                session?.timeToFirstActionSeconds !== null
+                    ? `${session.timeToFirstActionSeconds}s after session start`
+                    : 'Not recorded yet'}
+              </p>
+            </Card>
         <div className="grid gap-4 xl:grid-cols-[1.35fr_0.65fr]">
           <Card className="space-y-4">
             <div className="flex items-center justify-between">
@@ -389,41 +425,6 @@ export function SessionRoute() {
           </Card>
 
           <div className="space-y-4">
-            <Card className="space-y-3">
-              <div className="flex items-center justify-between">
-                <p className="text-sm text-slate-300">Focus timer</p>
-                <Timer size={16} className="text-amber-300" />
-              </div>
-              <p className="text-4xl font-bold tracking-tight text-amber-300">{formatTimer(remainingSeconds)}</p>
-              <div className="flex flex-wrap gap-2">
-                <button
-                  type="button"
-                  onClick={() => setRunning((current) => !current)}
-                  className="inline-flex items-center gap-1 rounded-lg border border-slate-700 px-3 py-2 text-sm text-slate-100 hover:bg-slate-800"
-                >
-                  {running ? <Pause size={14} /> : <Play size={14} />}
-                  {running ? 'Pause' : 'Resume'}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setRunning(false)
-                    setRemainingSeconds(plannedMinutes * 60)
-                  }}
-                  className="inline-flex items-center gap-1 rounded-lg border border-slate-700 px-3 py-2 text-sm text-slate-100 hover:bg-slate-800"
-                >
-                  <RotateCcw size={14} />
-                  Reset
-                </button>
-              </div>
-              <p className="text-xs text-slate-400">
-                First action:{' '}
-                {session?.timeToFirstActionSeconds !== undefined &&
-                session?.timeToFirstActionSeconds !== null
-                  ? `${session.timeToFirstActionSeconds}s after session start`
-                  : 'Not recorded yet'}
-              </p>
-            </Card>
 
             <Card className="space-y-2">
               <p className="text-sm font-semibold text-slate-200">Queued tasks</p>
@@ -481,6 +482,8 @@ export function SessionRoute() {
             </Card>
           </div>
         </div>
+          </div>
+
       ) : null}
 
       {phase === 'reflection' ? (

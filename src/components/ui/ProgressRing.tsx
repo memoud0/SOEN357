@@ -7,7 +7,7 @@ interface ProgressRingProps {
   label?: string
 }
 
-export function ProgressRing({ value, size = 112, stroke = 10, label }: ProgressRingProps) {
+export function ProgressRing({ value, size = 135, stroke = 10, label }: ProgressRingProps) {
   const normalized = Math.min(100, Math.max(0, value))
   const radius = (size - stroke) / 2
   const circumference = 2 * Math.PI * radius

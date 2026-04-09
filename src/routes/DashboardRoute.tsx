@@ -121,8 +121,8 @@ export function DashboardRoute() {
       <section className="grid gap-4 lg:grid-cols-[1fr_1fr]">
         <Card className="space-y-3">
           <h2 className="text-base font-semibold text-slate-100">Recent Session History</h2>
-          <div className="space-y-2">
-            {sessions.slice(0, 6).map((session) => (
+          <div className="space-y-2 max-h-64 overflow-y-auto [&::-webkit-scrollbar]:hidden [scrollbar-width:none]">
+            {sessions.map((session) => (
               <div key={session.id} className="rounded-xl border border-slate-800 bg-slate-900/60 p-3 text-sm text-slate-300">
                 <div className="flex items-center justify-between">
                   <p>{formatDate(session.startedAt)}</p>
